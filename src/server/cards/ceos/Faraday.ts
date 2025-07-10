@@ -4,7 +4,7 @@ import {CardType} from '../../../common/cards/CardType';
 import {IPlayer} from '../../IPlayer';
 import {CardRenderer} from '../render/CardRenderer';
 import {CeoCard} from './CeoCard';
-import {IProjectCard} from '../IProjectCard';
+import {ICard} from '../ICard';
 import {Size} from '../../../common/cards/render/Size';
 import {AltSecondaryTag} from '../../../common/cards/render/AltSecondaryTag';
 import {Tag} from '../../../common/cards/Tag';
@@ -47,7 +47,7 @@ export class Faraday extends CeoCard {
     return priorTagCount % 5 + tagsOnCard >= 5;
   }
 
-  public onCardPlayed(player: IPlayer, card: IProjectCard) {
+  public onCardPlayed(player: IPlayer, card: ICard) {
     if (card.tags.length === 0 || card.type === CardType.EVENT || !player.canAfford(2)) {
       return;
     }
@@ -55,8 +55,10 @@ export class Faraday extends CeoCard {
     this.processTags(player, card.tags);
   }
 
-  public onColonyAddedToLeavitt(player: IPlayer) {
-    this.processTags(player, [Tag.SCIENCE]);
+  public onNonCardTagAdded(player: IPlayer, tag: Tag) {
+    if (tag === Tag.SCIENCE) {
+      this.processTags(player, [Tag.SCIENCE]);
+    }
   }
 
   private processTags(player: IPlayer, tags: ReadonlyArray<Tag>) {

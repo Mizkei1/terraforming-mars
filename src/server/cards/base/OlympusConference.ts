@@ -9,6 +9,7 @@ import {CardResource} from '../../../common/CardResource';
 import {CardName} from '../../../common/cards/CardName';
 import {Priority} from '../../deferredActions/Priority';
 import {CardRenderer} from '../render/CardRenderer';
+import {ICard} from '../ICard';
 
 export class OlympusConference extends Card implements IProjectCard {
   constructor() {
@@ -33,12 +34,14 @@ export class OlympusConference extends Card implements IProjectCard {
   }
 
 
-  public onCardPlayed(player: IPlayer, card: IProjectCard) {
+  public onCardPlayed(player: IPlayer, card: ICard) {
     const scienceTags = player.tags.cardTagCount(card, Tag.SCIENCE);
     this.onScienceTagAdded(player, scienceTags);
   }
-  public onColonyAddedToLeavitt(player: IPlayer) {
-    this.onScienceTagAdded(player, 1);
+  public onNonCardTagAdded(player: IPlayer, tag: Tag) {
+    if (tag === Tag.SCIENCE) {
+      this.onScienceTagAdded(player, 1);
+    }
   }
   public onScienceTagAdded(player: IPlayer, count: number) {
     for (let i = 0; i < count; i++) {

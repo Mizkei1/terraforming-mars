@@ -64,7 +64,7 @@ export abstract class Colony implements IColony {
         this.visitor = undefined;
       } else {
         const raider = game.getPlayerById(game.syndicatePirateRaider);
-        if (raider.cardIsInEffect(CardName.HUAN)) {
+        if (raider.tableau.has(CardName.HUAN)) {
           this.visitor = undefined;
         }
       }
@@ -98,15 +98,15 @@ export abstract class Colony implements IColony {
       this.trackPosition = this.colonies.length;
     }
 
-    for (const cardOwner of player.game.getPlayers()) {
+    for (const cardOwner of player.game.players) {
       for (const card of cardOwner.tableau) {
-        card.onColonyAdded?.(player, cardOwner);
+        card.onColonyAddedByAnyPlayer?.(cardOwner, player);
       }
     }
 
     if (this.name === ColonyName.LEAVITT) {
       for (const card of player.tableau) {
-        card.onColonyAddedToLeavitt?.(player);
+        card.onNonCardTagAdded?.(player, Tag.SCIENCE);
       }
     }
   }
@@ -163,7 +163,7 @@ export abstract class Colony implements IColony {
       player.colonies.tradesThisGeneration++;
     }
 
-    if (player.cardIsInEffect(CardName.VENUS_TRADE_HUB)) {
+    if (player.tableau.has(CardName.VENUS_TRADE_HUB)) {
       player.stock.add(Resource.MEGACREDITS, 3, {log: true});
     }
 
@@ -252,13 +252,13 @@ export abstract class Colony implements IColony {
       break;
 
     case ColonyBenefit.GAIN_SCIENCE_TAG:
-      player.tags.gainScienceTag(1);
+      player.tags.extraScienceTags += 1;
       player.playCard(new ScienceTagCard(), undefined, 'nothing');
       game.log('${0} gained 1 Science tag', (b) => b.player(player));
       break;
 
     case ColonyBenefit.GAIN_SCIENCE_TAGS_AND_CLONE_TAG:
-      player.tags.gainScienceTag(2);
+      player.tags.extraScienceTags += 2;
       player.playCard(new ScienceTagCard(), undefined, 'nothing');
       game.log('${0} gained 2 Science tags', (b) => b.player(player));
       break;
@@ -336,7 +336,7 @@ export abstract class Colony implements IColony {
       action = new SimpleDeferredAction(
         player,
         () => {
-          const playersWithCards = game.getPlayers().filter((p) => p.cardsInHand.length > 0);
+          const playersWithCards = game.players.filter((p) => p.cardsInHand.length > 0);
           if (playersWithCards.length === 0) return undefined;
           return new SelectPlayer(playersWithCards, 'Select player to discard a card', 'Select')
             .andThen((selectedPlayer) => {
