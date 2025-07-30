@@ -21,7 +21,7 @@ export class MercenarySquad extends Card implements IProjectCard {
       requirements: {corruption: 1},
 
       metadata: {
-        cardNumber: 'U83',
+        cardNumber: 'U083',
         renderData: CardRenderer.builder((b) => {
           b.minus().wild(2, {all});
         }),
@@ -35,8 +35,10 @@ export class MercenarySquad extends Card implements IProjectCard {
     if (cards.length === 0) {
       return false;
     }
-    if (!cards.some((card) => player.game.getCardPlayerOrThrow(card.name) !== player)) {
-      this.warnings.add('selfTarget');
+    if (player.game.players.length > 1) {
+      if (!cards.some((card) => player.game.getCardPlayerOrThrow(card.name) !== player)) {
+        this.warnings.add('selfTarget');
+      }
     }
     return true;
   }

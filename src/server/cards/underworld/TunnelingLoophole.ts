@@ -5,15 +5,14 @@ import {CardRenderer} from '../render/CardRenderer';
 import {Card} from '../Card';
 import {Tag} from '../../../common/cards/Tag';
 
-export class ConcessionRights extends Card implements IProjectCard {
+export class TunnelingLoophole extends Card implements IProjectCard {
   public generationUsed: number = -1;
 
   constructor() {
     super({
-      name: CardName.CONCESSION_RIGHTS,
-      type: CardType.AUTOMATED,
+      name: CardName.TUNNELING_LOOPHOLE,
+      type: CardType.EVENT,
       cost: 8,
-      tags: [Tag.MARS],
       requirements: {tag: Tag.EARTH},
       victoryPoints: -1,
 
@@ -26,7 +25,7 @@ export class ConcessionRights extends Card implements IProjectCard {
       },
 
       metadata: {
-        cardNumber: 'U32',
+        cardNumber: 'U032',
         renderData: CardRenderer.builder((b) => {
           b.excavate().emptyTile().asterix().nbsp.excavate().corruption();
         }),

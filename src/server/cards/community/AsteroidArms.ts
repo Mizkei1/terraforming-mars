@@ -1,13 +1,14 @@
-import {CorporationCard} from '../corporation/CorporationCard';
-import {Tag} from '../../../common/cards/Tag';
-import {IPlayer} from '../../IPlayer';
-import {Resource} from '../../../common/Resource';
-import {CardName} from '../../../common/cards/CardName';
-import {CardRenderer} from '../render/CardRenderer';
-import {ICard} from '../ICard';
+import { CorporationCard } from '../corporation/CorporationCard';
+import { Tag } from '../../../common/cards/Tag';
+import { IPlayer } from '../../IPlayer';
+import { Resource } from '../../../common/Resource';
+import { CardName } from '../../../common/cards/CardName';
+import { CardRenderer } from '../render/CardRenderer';
+import { ICard } from '../ICard';
 import { CardType } from '../../../common/cards/CardType';
+import { ICorporationCard } from '../corporation/ICorporationCard';
 
-export class AsteroidArms extends CorporationCard {
+export class AsteroidArms extends CorporationCard implements ICorporationCard {
   constructor() {
     super({
       name: CardName.ASTEROID_ARMS,
@@ -15,7 +16,7 @@ export class AsteroidArms extends CorporationCard {
       startingMegaCredits: 38,
       behavior: {
         stock: {
-            titanium: 2
+          titanium: 2
         }
       },
       metadata: {
@@ -31,18 +32,18 @@ export class AsteroidArms extends CorporationCard {
     });
   }
 
-/*   public override bespokePlay(player: IPlayer) {
-    this.onCorpCardPlayed(player, this);
-    return undefined;
-  }
+  /*   public override bespokePlay(player: IPlayer) {
+      this.onCorpCardPlayed(player, this);
+      return undefined;
+    }
+  
+    public onCorpCardPlayed(player: IPlayer, card: ICorporationCard) {
+      this.onCardPlayed(player, card);
+    } */
 
-  public onCorpCardPlayed(player: IPlayer, card: ICorporationCard) {
-    this.onCardPlayed(player, card);
-  } */
-
-  public onCardPlayed(player: IPlayer, card: ICard): void {
-    if (player.isCorporation(this.name) && card.type === CardType.EVENT) {
-      player.production.add(Resource.HEAT, 1, {log: true});
+  public onCardPlayedForCorps(player: IPlayer, card: ICard): void {
+    if (card.type === CardType.EVENT) {
+      player.production.add(Resource.HEAT, 1, { log: true });
     }
   }
 

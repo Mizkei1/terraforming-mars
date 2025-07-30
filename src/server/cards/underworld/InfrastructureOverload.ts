@@ -11,11 +11,9 @@ export class InfrastructureOverload extends Card implements IProjectCard {
   constructor() {
     super({
       name: CardName.INFRASTRUCTURE_OVERLOAD,
-      type: CardType.EVENT,
-      cost: 3,
+      type: CardType.AUTOMATED,
+      cost: 7,
       tags: [Tag.POWER, Tag.CRIME],
-
-      requirements: {corruption: 2},
 
       victoryPoints: -1,
 
@@ -24,11 +22,12 @@ export class InfrastructureOverload extends Card implements IProjectCard {
       },
 
       metadata: {
-        cardNumber: 'U68',
+        cardNumber: 'U068',
         renderData: CardRenderer.builder((b) => {
+          b.corruption(1);
           b.production((pb) => pb.text('-2').energy(1, {all}));
         }),
-        description: 'Requires 2 corruption. Reduce any energy production 2 steps.',
+        description: 'Gain 1 corruption. Reduce any energy production 2 steps.',
       },
     });
   }

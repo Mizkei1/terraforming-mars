@@ -1,33 +1,32 @@
-import {expect} from 'chai';
-import {GeologicalSurvey} from '../../../src/server/cards/underworld/GeologicalSurvey';
+import {CanyonSurvey} from '../../../src/server/cards/underworld/CanyonSurvey';
 import {testGame} from '../../TestGame';
 import {cast, runAllActions} from '../../TestingUtils';
 import {IGame} from '../../../src/server/IGame';
 import {TestPlayer} from '../../TestPlayer';
-import {assertIsIdentificationAction} from '../../underworld/underworldAssertions';
-import {CommunicationCenter} from '../../../src/server/cards/pathfinders/CommunicationCenter';
+import {assertIsClaimAction, assertIsIdentificationAction} from '../../underworld/underworldAssertions';
 
-describe('GeologicalSurvey', () => {
-  let card: GeologicalSurvey;
+describe('CanyonSurvey', () => {
+  let card: CanyonSurvey;
   let game: IGame;
   let player: TestPlayer;
 
   beforeEach(() => {
-    card = new GeologicalSurvey();
+    card = new CanyonSurvey();
     [game, player] = testGame(1, {underworldExpansion: true});
   });
 
   it('play', () => {
-    const communicationCenter = new CommunicationCenter();
-    player.playedCards.push(communicationCenter);
     cast(card.play(player), undefined);
-    runAllActions(game);
 
+    runAllActions(game);
     assertIsIdentificationAction(player, player.popWaitingFor());
     runAllActions(game);
     assertIsIdentificationAction(player, player.popWaitingFor());
+    runAllActions(game);
+    assertIsIdentificationAction(player, player.popWaitingFor());
+    runAllActions(game);
+    assertIsClaimAction(player, player.popWaitingFor());
     runAllActions(game);
     cast(player.popWaitingFor(), undefined);
-    expect(communicationCenter.resourceCount).eq(1);
   });
 });

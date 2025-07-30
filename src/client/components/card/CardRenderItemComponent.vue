@@ -14,7 +14,7 @@ import {AltSecondaryTag} from '@/common/cards/render/AltSecondaryTag';
 import {Size} from '@/common/cards/render/Size';
 import {Tag} from '@/common/cards/Tag';
 import {ICardRenderItem, isICardRenderItem} from '@/common/cards/render/Types';
-import {CardResource} from '@/common/CardResource';
+import {cardResourceCSS} from '../common/cardResources';
 
 export default Vue.extend({
   name: 'CardRenderItemComponent',
@@ -30,13 +30,13 @@ export default Vue.extend({
   },
   computed: {
     resourceClass(): string {
-      if (this.item.resource === undefined) {
-        return '';
+      return (this.item.resource === undefined) ? '' : cardResourceCSS[this.item.resource];
+    },
+    resourceSizeClass(): string {
+      if (this.item.size !== undefined) {
+        return 'card-resource-size--' + this.item.size;
       }
-      if (this.item.resource === CardResource.RESOURCE_CUBE) {
-        return 'card-resource-cube';
-      }
-      return 'card-resource-' + this.item.resource.toLowerCase().replaceAll(' ', '-');
+      return '';
     },
     tagClass(): string {
       if (this.item.tag === undefined) {
@@ -270,7 +270,7 @@ export default Vue.extend({
       case CardRenderItemType.CORRUPTION:
         return [cardResource, 'card-resource-corruption'];
       case CardRenderItemType.RESOURCE:
-        return [cardResource, this.resourceClass];
+        return [cardResource, this.resourceClass, this.resourceSizeClass];
       case CardRenderItemType.TAG:
         return ['card-resource-tag', this.tagClass];
       case CardRenderItemType.NEUTRAL_DELEGATE:
