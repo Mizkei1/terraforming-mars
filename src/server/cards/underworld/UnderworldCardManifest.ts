@@ -48,7 +48,7 @@ import {GaiaCity} from './GaiaCity';
 import {GanymedeTradingCompany} from './GanymedeTradingCompany';
 import {GasTrust} from './GasTrust';
 import {GeologicalExpertise} from './GeologicalExpertise';
-import {GeologicalSurvey} from './GeologicalSurvey';
+import {CanyonSurvey} from './CanyonSurvey';
 import {GeologistTeam} from './GeologistTeam';
 import {GeoscanSatellite} from './GeoscanSatellite';
 import {GeothermalNetwork} from './GeothermalNetwork';
@@ -207,7 +207,7 @@ export const UNDERWORLD_CARD_MANIFEST = new ModuleManifest({
     [CardName.EARTHQUAKE_MACHINE]: {Factory: EarthquakeMachine},
     [CardName.MICRO_GEODESICS]: {Factory: MicroGeodesics},
     [CardName.NEUTRINOGRAPH]: {Factory: Neutrinograph},
-    [CardName.SOIL_EXPORT]: {Factory: SoilExport},
+    [CardName.SOIL_EXPORT]: {Factory: SoilExport, compatibility: 'venus'},
     [CardName.ARTESIAN_AQUIFER]: {Factory: ArtesianAquifer},
     [CardName.CHEMICAL_FACTORY]: {Factory: ChemicalFactory},
     [CardName.CORPORATE_THEFT]: {Factory: CorporateTheft},
@@ -232,7 +232,7 @@ export const UNDERWORLD_CARD_MANIFEST = new ModuleManifest({
     [CardName.MARTIAN_EXPRESS]: {Factory: MartianExpress},
     [CardName.EXPEDITION_VEHICLES]: {Factory: ExpeditionVehicles},
     [CardName.CUT_THROAT_BUDGETING]: {Factory: CutThroatBudgeting},
-    [CardName.GEOLOGICAL_SURVEY_UNDERWORLD]: {Factory: GeologicalSurvey},
+    [CardName.CANYON_SURVEY]: {Factory: CanyonSurvey},
     // 82-90
     [CardName.CLASS_ACTION_LAWSUIT]: {Factory: ClassActionLawsuit},
     [CardName.MERCENARY_SQUAD]: {Factory: MercenarySquad},

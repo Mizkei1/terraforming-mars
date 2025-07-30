@@ -578,11 +578,12 @@ export enum CardName {
   PUBLIC_BATHS = 'Public Baths',
   PROTECTED_GROWTH = 'Protected Growth',
   VERMIN = 'Vermin',
-
-  // Promo from contest
-  FLOYD_CONTINUUM = 'Floyd Continuum',
   CASINOS = 'Casinos',
+
+  // Promo cards from Dutch Open
+  FLOYD_CONTINUUM = 'Floyd Continuum',
   NEW_HOLLAND = 'New Holland',
+  POLDERTECH_DUTCH = 'PolderTECH Dutch',
 
   // End of promo cards
 
@@ -1007,7 +1008,7 @@ export enum CardName {
   MARTIAN_EXPRESS = 'Martian Express',
   EXPEDITION_VEHICLES = 'Expedition Vehicles',
   CUT_THROAT_BUDGETING = 'Cut-throat Budgeting',
-  GEOLOGICAL_SURVEY_UNDERWORLD = 'Geological Survey:underworld',
+  CANYON_SURVEY = 'Canyon Survey',
   CLASS_ACTION_LAWSUIT = 'Class-action Lawsuit',
   MERCENARY_SQUAD = 'Mercenary Squad',
   RESEARCH_DEVELOPMENT_HUB = 'Research & Development Hub',
