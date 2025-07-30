@@ -1,13 +1,13 @@
-import {Tag} from '../../../common/cards/Tag';
-import {IPlayer} from '../../IPlayer';
-import {ICorporationCard} from '../corporation/ICorporationCard';
-import {CorporationCard} from '../corporation/CorporationCard';
-import {ICard} from '../ICard';
-import {CardName} from '../../../common/cards/CardName';
-import {CardRenderer} from '../render/CardRenderer';
+import { Tag } from '../../../common/cards/Tag';
+import { IPlayer } from '../../IPlayer';
+import { ICorporationCard } from '../corporation/ICorporationCard';
+import { CorporationCard } from '../corporation/CorporationCard';
+import { ICard } from '../ICard';
+import { CardName } from '../../../common/cards/CardName';
+import { CardRenderer } from '../render/CardRenderer';
 
-export class PirkkaLuna extends CorporationCard {
-    private generationMap: Record<number, boolean> = {};
+export class PirkkaLuna extends CorporationCard implements ICorporationCard {
+  private generationMap: Record<number, boolean> = {};
   constructor() {
     super({
       name: CardName.PIRKKA_LUNA,
@@ -15,7 +15,7 @@ export class PirkkaLuna extends CorporationCard {
       startingMegaCredits: 44,
 
       behavior: {
-        drawCard: {count: 3, tag: Tag.SCIENCE},
+        drawCard: { count: 3, tag: Tag.SCIENCE },
       },
 
       metadata: {
@@ -33,15 +33,14 @@ export class PirkkaLuna extends CorporationCard {
     });
   }
   public onCorpCardPlayed(player: IPlayer, card: ICorporationCard) {
-    
     if (card === this) {
-        return undefined;
+      return undefined;
     }
-    return this.onCardPlayed(player, card);
+    return this.onCardPlayedForCorps(player, card);
   }
 
-  public onCardPlayed(player: IPlayer, card: ICard) {
-    if (player.isCorporation(this.name) && !this.generationMap[player.game.generation]) {
+  public onCardPlayedForCorps(player: IPlayer, card: ICard) {
+    if (!this.generationMap[player.game.generation]) {
       const tagCount = player.tags.cardTagCount(card, Tag.EARTH);
       if (tagCount > 0) {
         this.generationMap[player.game.generation] = true;
